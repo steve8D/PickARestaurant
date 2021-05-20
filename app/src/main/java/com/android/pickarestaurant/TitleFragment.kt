@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import com.android.pickarestaurant.databinding.FragmentTitleBinding
 
 class TitleFragment : Fragment() {
@@ -13,6 +14,8 @@ class TitleFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_title, container, false)
+        binding.pickRestaurantButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_resultFragment))
         return binding.root
     }
 }

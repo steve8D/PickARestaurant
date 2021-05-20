@@ -11,8 +11,10 @@
 
         <fragment
             android:id="@+id/title_fragment"
-            android:name="com.android.pickarestaurant.TitleFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:navGraph="@navigation/navigation"
+            app:defaultNavHost="true" />
     </LinearLayout>
 </layout>
