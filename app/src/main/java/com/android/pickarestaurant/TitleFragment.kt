@@ -15,7 +15,7 @@ class TitleFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_title, container, false)
         binding.pickRestaurantButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_resultFragment))
+            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_loadingFragment))
         return binding.root
     }
 }
