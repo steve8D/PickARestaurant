@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.android.pickarestaurant.R
 import com.android.pickarestaurant.databinding.FragmentResultBinding
 
@@ -30,9 +32,13 @@ class ResultFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         // navigates back to the loading screen if user wants to pick another restaurant
-        binding.pickRestaurantAgainButton.setOnClickListener(Navigation.createNavigateOnClickListener(
-            R.id.action_resultFragment_to_loadingFragment
-        ))
+//        binding.pickRestaurantAgainButton.setOnClickListener(Navigation.createNavigateOnClickListener(
+//            R.id.action_resultFragment_to_loadingFragment
+//        ))
+        viewModel.findAgain.observe(this, Observer { findAgain ->
+            if (findAgain)
+                findNavController().navigate(R.id.action_resultFragment_to_loadingFragment)
+        })
         return binding.root
     }
 }
