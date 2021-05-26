@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.android.pickarestaurant.TitleFragment"
+        android:name="com.android.pickarestaurant.screens.title.TitleFragment"
         android:label="fragment_title"
         tools:layout="@layout/fragment_title" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.android.pickarestaurant.ResultFragment"
+        android:name="com.android.pickarestaurant.screens.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/loadingFragment"
-        android:name="com.android.pickarestaurant.LoadingFragment"
+        android:name="com.android.pickarestaurant.screens.loading.LoadingFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" >
         <action
@@ -39,8 +39,5 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="false" />
-        <argument
-            android:name="restaurantName"
-            app:argType="string" />
     </fragment>
 </navigation>

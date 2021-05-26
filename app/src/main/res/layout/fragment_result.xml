@@ -2,7 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ResultFragment">
+    tools:context=".screens.result.ResultFragment">
+
+    <data>
+        <variable
+            name="resultViewModel"
+            type="com.android.pickarestaurant.screens.result.ResultViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
