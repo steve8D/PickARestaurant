@@ -1,5 +1,6 @@
 package com.android.pickarestaurant.screens.result
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,11 @@ class ResultViewModel: ViewModel() {
         get() = _restaurantName
 
     init {
-        _findAgain.value = true // will be initialised differently once finding a restaurant on places API is implemented
+        Log.i("ResultViewModel", "Result View Model initialised")
+        _findAgain.value = false // will be initialised differently once finding a restaurant on places API is implemented
+    }
+
+    fun findAnotherRestaurant() {
+        _findAgain.value = true
     }
 }

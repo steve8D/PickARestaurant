@@ -35,8 +35,9 @@ class LoadingFragment : Fragment() {
 
 //        binding.tempButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loadingFragment_to_resultFragment))
         viewModel.foundRestaurant.observe(this, Observer { hasFoundRestaurant ->
-            if (hasFoundRestaurant)
+            if (!hasFoundRestaurant) {
                 findNavController().navigate(R.id.action_loadingFragment_to_resultFragment)
+            }
         })
 
         return binding.root

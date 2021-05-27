@@ -36,8 +36,9 @@ class ResultFragment : Fragment() {
 //            R.id.action_resultFragment_to_loadingFragment
 //        ))
         viewModel.findAgain.observe(this, Observer { findAgain ->
-            if (findAgain)
+            if (findAgain) {
                 findNavController().navigate(R.id.action_resultFragment_to_loadingFragment)
+            }
         })
         return binding.root
     }
