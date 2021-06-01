@@ -1,5 +1,7 @@
 package com.android.pickarestaurant.screens.result
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,14 +34,22 @@ class ResultFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         // navigates back to the loading screen if user wants to pick another restaurant
-//        binding.pickRestaurantAgainButton.setOnClickListener(Navigation.createNavigateOnClickListener(
-//            R.id.action_resultFragment_to_loadingFragment
-//        ))
         viewModel.findAgain.observe(this, Observer { findAgain ->
             if (findAgain) {
                 findNavController().navigate(R.id.action_resultFragment_to_loadingFragment)
             }
         })
+
+        binding.openGoogleMapButton.setOnClickListener{
+            val gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
         return binding.root
+    }
+
+    private fun openGoogleMap(view: View) {
+
     }
 }
