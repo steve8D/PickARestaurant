@@ -8,17 +8,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.android.pickarestaurant.R
 import com.android.pickarestaurant.databinding.FragmentLoadingBinding
-import com.android.pickarestaurant.databinding.FragmentResultBinding
-import com.android.pickarestaurant.screens.result.ResultViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+
 
 class LoadingFragment : Fragment() {
     private lateinit var viewModel: LoadingViewModel
 
     private lateinit var binding: FragmentLoadingBinding
+
+    // FusedLocationProviderClient - Main class for receiving location updates.
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

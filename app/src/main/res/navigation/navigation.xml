@@ -25,7 +25,8 @@
             android:id="@+id/action_resultFragment_to_loadingFragment"
             app:destination="@id/loadingFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/loadingFragment"
@@ -37,6 +38,7 @@
             app:destination="@id/resultFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="false" />
     </fragment>
 </navigation>

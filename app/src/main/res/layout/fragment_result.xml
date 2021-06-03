@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/restaurantNameText"
-            android:text="@string/restaurant_name"
+            android:text="@{resultViewModel.restaurantName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/teal_200"
             android:text="Open Google Map"
+            android:onClick="@{() -> resultViewModel.navigationToGoogleMapsHandled()}"
             app:layout_constraintBottom_toTopOf="@+id/pickRestaurantAgainButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
