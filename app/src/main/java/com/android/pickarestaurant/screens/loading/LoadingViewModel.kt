@@ -13,6 +13,7 @@ class LoadingViewModel: ViewModel() {
     val foundRestaurant: LiveData<Boolean>
         get() = _foundRestaurant
 
+
     init {
         Log.i("LoadingViewModel", "Loading View Model initialised")
         _foundRestaurant.value = true // will be initialised to false once finding a restaurant on places API is implemented
