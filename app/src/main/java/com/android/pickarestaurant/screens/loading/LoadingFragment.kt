@@ -1,6 +1,7 @@
 package com.android.pickarestaurant.screens.loading
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -37,6 +38,7 @@ class LoadingFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
     private val PERMISSION_FINE_LOCATION: Int = 99
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,6 +93,7 @@ class LoadingFragment : Fragment() {
         ) {
             fusedLocationProviderClient.lastLocation.addOnSuccessListener(OnSuccessListener { location ->
                 updateUIValues(location)
+                viewModel.LaunchGoogleSearch()
             })
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
@@ -98,8 +101,8 @@ class LoadingFragment : Fragment() {
     }
 
     private fun updateUIValues(location: Location) {
-        Log.i("LoadingFragment", location.latitude.toString())
-        Log.i("LoadingFragment", location.longitude.toString())
+        viewModel.latitude.value = location.latitude.toString()
+        viewModel.longitude.value = location.longitude.toString()
     }
 
     override fun onRequestPermissionsResult(
