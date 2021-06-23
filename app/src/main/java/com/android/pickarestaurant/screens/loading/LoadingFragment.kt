@@ -84,7 +84,7 @@ class LoadingFragment : Fragment() {
         }
 
         fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(activity as Context?)
+            LocationServices.getFusedLocationProviderClient(activity as Context)
 
         if (ActivityCompat.checkSelfPermission(
                 (activity as Context),
