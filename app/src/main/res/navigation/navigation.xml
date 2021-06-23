@@ -28,9 +28,8 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/titleFragment" />
         <argument
-            android:name="restaurantName"
-            android:defaultValue=""
-            app:argType="string" />
+            android:name="restaurant"
+            app:argType="com.android.pickarestaurant.screens.network.Result" />
     </fragment>
     <fragment
         android:id="@+id/loadingFragment"
@@ -44,5 +43,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="false" />
+
     </fragment>
 </navigation>

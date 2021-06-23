@@ -36,32 +36,17 @@
             app:layout_constraintTop_toBottomOf="@+id/resultText"
             style="@style/text" />
 
-        <ImageView
-            android:id="@+id/restaurantImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="200sp"
-            android:contentDescription="This image will display the image of the restaurant from Google API"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurantNameText"
-            app:layout_constraintVertical_bias="0.273" />
-
         <Button
             android:id="@+id/openGoogleMapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/teal_200"
-            android:text="Open Google Map"
             android:onClick="@{() -> resultViewModel.navigationToGoogleMapsHandled()}"
+            android:text="Open Google Map"
             app:layout_constraintBottom_toTopOf="@+id/pickRestaurantAgainButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurantImageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/pickRestaurantAgainButton"

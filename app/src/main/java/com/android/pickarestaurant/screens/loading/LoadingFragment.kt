@@ -4,9 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +14,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.android.pickarestaurant.R
 import com.android.pickarestaurant.databinding.FragmentLoadingBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.OnSuccessListener
 import java.util.concurrent.TimeUnit
 
 
@@ -57,12 +53,12 @@ class LoadingFragment : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
-        viewModel.foundRestaurant.observe(this, Observer { hasFoundRestaurant ->
-            if (hasFoundRestaurant) {
-//                LoadingFragmentDirections.actionLoadingFragmentToResultFragment(viewModel.restaurants.value)
-                findNavController().navigate(R.id.action_loadingFragment_to_resultFragment)
+        viewModel.selectedRestaurant.observe(this, Observer {
+            if (null != it) {
+                findNavController().navigate(LoadingFragmentDirections.actionLoadingFragmentToResultFragment(it))
+                viewModel.displayRestaurantComplete()
             }
         })
 

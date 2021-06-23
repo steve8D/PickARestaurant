@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.android.pickarestaurant.R
 import com.android.pickarestaurant.databinding.FragmentResultBinding
@@ -25,21 +24,21 @@ class ResultFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_result, container, false)
-
-        viewModel = ViewModelProvider(this).get(ResultViewModel::class.java)
-
-        binding.resultViewModel = viewModel
+        binding = FragmentResultBinding.inflate(inflater)
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
+
+        val restaurant = ResultFragmentArgs.fromBundle(requireArguments()).restaurant
+        val viewModelFactory = ResultViewModelFactory(restaurant)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ResultViewModel::class.java)
+        binding.resultViewModel = viewModel
 
         // navigates back to the loading screen if user wants to pick another restaurant
         viewModel.findAgain.observe(this, Observer { findAgain ->
             if (findAgain) {
-                findNavController().navigate(R.id.action_resultFragment_to_loadingFragment)
+                findNavController().navigate(ResultFragmentDirections.actionResultFragmentToLoadingFragment())
             }
         })
 

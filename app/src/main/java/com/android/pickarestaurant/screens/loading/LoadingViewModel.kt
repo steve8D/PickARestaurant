@@ -14,57 +14,46 @@ import kotlin.random.Random
 
 class LoadingViewModel: ViewModel() {
     // attributes
-    // 1/ variable set to true when app has found a restaurant
-    // otherwise, set to false
-    private val _foundRestaurant = MutableLiveData<Boolean>()
-    val foundRestaurant: LiveData<Boolean>
-        get() = _foundRestaurant
-
-    // 2/ latitude
+    // 1/ latitude
     private val _latitude = MutableLiveData<String>()
     val latitude: MutableLiveData<String>
         get() = _latitude
 
-    // 3/ longitude
+    // 2/ longitude
     private val _longitude = MutableLiveData<String>()
     val longitude: MutableLiveData<String>
         get() = _longitude
 
-    // 4/ List of Restaurants returned from Googles API
+    // 3/ List of Restaurants returned from Googles API
     private val _restaurants = MutableLiveData<List<Result>>()
-    val restaurants: LiveData<List<Result>>
-        get() = _restaurants
 
-    // 5/ The randomly selected restaurant from the list of  restaurants
-    private val _navigateToSelectedRestaurant = MutableLiveData<Result>()
-    val navigateToSelectedProperty: LiveData<Result>
-        get() = _navigateToSelectedRestaurant
+    // 4/ The randomly selected restaurant from the list of restaurants
+    private val _selectedRestaurant = MutableLiveData<Result>()
+    val selectedRestaurant: LiveData<Result>
+        get() = _selectedRestaurant
 
     init {
-        _foundRestaurant.value = false
+
     }
 
     fun LaunchGoogleSearch() {
         MapsApi.retrofitService.getRestaurants("${_latitude.value}, ${_longitude.value}", 1500, "restaurant", "", "AIzaSyC7Rro_WLInpUuCrLl9r-uHogpmIsCAAyo").enqueue( object: Callback<NearbySearchResponse> {
             override fun onFailure(call: Call<NearbySearchResponse>, t: Throwable) {
-                Log.i("LoadingViewModel", t.message.toString())
             }
 
             override fun onResponse(call: Call<NearbySearchResponse>, response: Response<NearbySearchResponse>) {
                 _restaurants.value = response.body()?.results
-                Log.i("LoadingViewModel", response.body()?.results?.size.toString())
                 pickARandomRestaurant()
             }
         })
     }
 
-    fun hasFoundRestaurant() {
-        _foundRestaurant.value = true
+    fun displayRestaurantComplete() {
+        _selectedRestaurant.value = null
     }
 
     fun pickARandomRestaurant() {
-        val randomInt = Random.nextInt(0,_restaurants.value!!.size+1)
-        Log.i("LoadingViewModel", randomInt.toString())
-        hasFoundRestaurant()
+        val randomInt = Random.nextInt(0,_restaurants.value!!.size)
+        _selectedRestaurant.value = _restaurants.value!![randomInt]
     }
 }

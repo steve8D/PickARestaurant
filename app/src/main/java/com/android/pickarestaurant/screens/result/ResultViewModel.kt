@@ -3,12 +3,12 @@ package com.android.pickarestaurant.screens.result
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.pickarestaurant.screens.network.Result
 
-class ResultViewModel: ViewModel() {
+class ResultViewModel(restaurant: Result) : ViewModel() {
 
     // attributes
     // 1/ variable set to true when user wants to find another restaurant
@@ -23,6 +23,11 @@ class ResultViewModel: ViewModel() {
     val navigateToGoogleMaps : LiveData<Boolean>
         get() = _navigateToGoogleMaps
 
+    private val _restaurant = MutableLiveData<Result>()
+    var restaurant : LiveData<Result>
+        get() = _restaurant
+        set(value) {}
+
     // 3/ restaurant name for displaying the result as well as adding to the maps query search (Google Maps Intent)
     private val _restaurantName = MutableLiveData<String>()
     val restaurantName: LiveData<String>
@@ -30,17 +35,15 @@ class ResultViewModel: ViewModel() {
 
     // 4/ Place ID of the restaurant to be placed into the google maps search query
     private val _placeID = MutableLiveData<String>()
-    val placeID : LiveData<String>
-        get() = _placeID
 
     init {
         Log.i("ResultViewModel", "Result View Model initialised")
-        _findAgain.value = false // will be initialised differently once finding a restaurant on places API is implemented
+        _findAgain.value = false
         _navigateToGoogleMaps.value = false
 
         // temp init values
-        _restaurantName.value = "Teadot"
-        _placeID.value = "ChIJY-ozCQBzhlQRbw92Fwv95Ak"
+        _restaurant.value = restaurant
+        extractRestaurantInfo()
     }
 
     fun findAnotherRestaurant() {
@@ -49,6 +52,11 @@ class ResultViewModel: ViewModel() {
 
     fun navigationToGoogleMapsHandled() {
         _navigateToGoogleMaps.value = true
+    }
+
+    fun extractRestaurantInfo() {
+        _restaurantName.value = restaurant.value?.name
+        _placeID.value = restaurant.value?.placeID
     }
 
     fun openGoogleMaps(): Intent {
