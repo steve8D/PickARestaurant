@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.android.pickarestaurant.R
 import com.android.pickarestaurant.databinding.FragmentLoadingBinding
@@ -59,7 +60,8 @@ class LoadingFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         viewModel.foundRestaurant.observe(this, Observer { hasFoundRestaurant ->
-            if (!hasFoundRestaurant) {
+            if (hasFoundRestaurant) {
+//                LoadingFragmentDirections.actionLoadingFragmentToResultFragment(viewModel.restaurants.value)
                 findNavController().navigate(R.id.action_loadingFragment_to_resultFragment)
             }
         })
@@ -88,21 +90,17 @@ class LoadingFragment : Fragment() {
 
         if (ActivityCompat.checkSelfPermission(
                 (activity as Context),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener(OnSuccessListener { location ->
-                updateUIValues(location)
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                viewModel.latitude.value = location.latitude.toString()
+                viewModel.longitude.value = location.longitude.toString()
                 viewModel.LaunchGoogleSearch()
-            })
+            }
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
         }
-    }
-
-    private fun updateUIValues(location: Location) {
-        viewModel.latitude.value = location.latitude.toString()
-        viewModel.longitude.value = location.longitude.toString()
     }
 
     override fun onRequestPermissionsResult(

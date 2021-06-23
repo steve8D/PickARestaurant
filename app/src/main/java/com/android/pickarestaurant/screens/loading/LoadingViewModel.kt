@@ -10,6 +10,7 @@ import com.android.pickarestaurant.screens.network.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 class LoadingViewModel: ViewModel() {
     // attributes
@@ -39,30 +40,31 @@ class LoadingViewModel: ViewModel() {
     val navigateToSelectedProperty: LiveData<Result>
         get() = _navigateToSelectedRestaurant
 
-    private val _response = MutableLiveData<String>()
-    val response: LiveData<String>
-        get() = _response
-
     init {
-        Log.i("LoadingViewModel", "Loading View Model initialised")
-        _foundRestaurant.value = true // will be initialised to false once finding a restaurant on places API is implemented
+        _foundRestaurant.value = false
     }
 
     fun LaunchGoogleSearch() {
         MapsApi.retrofitService.getRestaurants("${_latitude.value}, ${_longitude.value}", 1500, "restaurant", "", "AIzaSyC7Rro_WLInpUuCrLl9r-uHogpmIsCAAyo").enqueue( object: Callback<NearbySearchResponse> {
             override fun onFailure(call: Call<NearbySearchResponse>, t: Throwable) {
-                _response.value = "Failure: " + t.message
+                Log.i("LoadingViewModel", t.message.toString())
             }
 
             override fun onResponse(call: Call<NearbySearchResponse>, response: Response<NearbySearchResponse>) {
-                _response.value = response.body()?.results?.size.toString()
-
+                _restaurants.value = response.body()?.results
+                Log.i("LoadingViewModel", response.body()?.results?.size.toString())
+                pickARandomRestaurant()
             }
         })
-        Log.i("LoadingViewModel" ,_restaurants.value.toString())
     }
 
     fun hasFoundRestaurant() {
-        _foundRestaurant.value = false
+        _foundRestaurant.value = true
+    }
+
+    fun pickARandomRestaurant() {
+        val randomInt = Random.nextInt(0,_restaurants.value!!.size+1)
+        Log.i("LoadingViewModel", randomInt.toString())
+        hasFoundRestaurant()
     }
 }
