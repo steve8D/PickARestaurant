@@ -11,5 +11,5 @@ I want to learn about making an Android application using Kotlin and the REST AP
 ## User Stories
 - As a user, I want to be able to have the application decide a random restaurant for me.
 - As a user, I want to be able to be directed to view the restaurant listing on Google Maps application.
-- As a user, I want the application to 
+- As a user, I want to have an option to have the application pick another restaurant again.
  
