@@ -21,7 +21,7 @@ private val retrofit = Retrofit.Builder()
 
 interface GoogleMapsApi {
     @GET("/maps/api/place/nearbysearch/json")
-    fun getRestaurants(@Query("location") location: String, @Query("radius") radius: Int, @Query("type") type: String, @Query("opennow") isOpen: String, @Query("key") key: String): Call<NearbySearchResponse>
+    fun getRestaurants(@Query("location") location: String, @Query("radius") radius: Int, @Query("type") type: String, @Query("opennow") isOpen: Boolean, @Query("key") key: String, @Query("pagetoken") pageToken: String): Call<NearbySearchResponse>
 }
 object MapsApi {
     val retrofitService : GoogleMapsApi by lazy { retrofit.create(GoogleMapsApi::class.java) }

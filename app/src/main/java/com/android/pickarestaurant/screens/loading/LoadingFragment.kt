@@ -55,9 +55,9 @@ class LoadingFragment : Fragment() {
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
-        viewModel.selectedRestaurant.observe(this, Observer {
-            if (null != it) {
-                findNavController().navigate(LoadingFragmentDirections.actionLoadingFragmentToResultFragment(it))
+        viewModel.hasSelectRestaurant.observe(this, Observer {
+            if (it) {
+                findNavController().navigate(LoadingFragmentDirections.actionLoadingFragmentToResultFragment(viewModel.selectedRestaurant.value!!))
                 viewModel.displayRestaurantComplete()
             }
         })
@@ -86,13 +86,15 @@ class LoadingFragment : Fragment() {
 
         if (ActivityCompat.checkSelfPermission(
                 (activity as Context),
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                viewModel.latitude.value = location.latitude.toString()
-                viewModel.longitude.value = location.longitude.toString()
-                viewModel.LaunchGoogleSearch()
+                if (location != null) {
+                    viewModel.latitude.value = location.latitude.toString()
+                    viewModel.longitude.value = location.longitude.toString()
+                    viewModel.launchGoogleSearch("")
+                }
             }
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
