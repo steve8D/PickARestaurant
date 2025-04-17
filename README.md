@@ -13,3 +13,5 @@ I want to learn about making an Android application using Kotlin and the REST AP
 - As a user, I want to be able to be directed to view the restaurant listing on Google Maps application.
 - As a user, I want to have an option to have the application pick another restaurant again.
  
+https://github.com/user-attachments/assets/913892b0-dbf3-49e9-a0e9-db9bb6d9f8b3
+
