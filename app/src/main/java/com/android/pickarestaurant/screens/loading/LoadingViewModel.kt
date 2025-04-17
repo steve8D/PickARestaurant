@@ -42,7 +42,7 @@ class LoadingViewModel: ViewModel() {
     }
 
     fun launchGoogleSearch(pageToken: String) {
-        MapsApi.retrofitService.getRestaurants("${_latitude.value}, ${_longitude.value}", 1500, "restaurant", true, "AIzaSyC7Rro_WLInpUuCrLl9r-uHogpmIsCAAyo", pageToken).enqueue( object: Callback<NearbySearchResponse> {
+        MapsApi.retrofitService.getRestaurants("${_latitude.value}, ${_longitude.value}", 1500, "restaurant", true, "Insert Your Places API key here", pageToken).enqueue( object: Callback<NearbySearchResponse> {
             override fun onFailure(call: Call<NearbySearchResponse>, t: Throwable) {
             }
 
